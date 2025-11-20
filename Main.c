@@ -50,7 +50,44 @@ void binaryOperations(int n1, int n2, char operation) {
             break;
     }
 }
-
+void UnaryOperations(int num1, char operation) {
+    float floatResult;
+    switch (operation) {
+        case 'S':
+        case 's':
+            // Check for negative number
+            if (num1 < 0) {
+                printf("Error: Cannot take square root of negative number.\n");
+            } else {
+                floatResult = sqrt(num1);
+                printf("The square root of %.2d is %.2lf\n", num1, floatResult);
+            }
+            break;
+        case 'L':
+        case 'l':
+            floatResult = log((float) num1);
+            printf("The log of %d is %f\n", num1, floatResult);
+            break;
+        case 'E':
+        case 'e':
+            floatResult = exp((float) num1);
+            printf("The exponential of %d is %f\n", num1, floatResult);
+            break;
+        case 'c':
+        case 'C':
+            floatResult = ceil((float) num1);
+            printf("The ceiling of %d is %f\n", num1, floatResult);
+            break;
+        case 'f':
+        case 'F':
+            floatResult = floor((float) num1);
+            printf("The floor of %d is %f\n", num1, floatResult);
+            break;
+        default:
+            printf("Invalid operator\n");
+            break;
+    }
+}
 
 
 int main(void) {
@@ -141,41 +178,7 @@ int main(void) {
                 valid = 0;
 
                 // Perform the selected unary operation
-                switch (operation) {
-                    case 'S':
-                    case 's':
-                        // Check for negative number
-                        if (num1 < 0) {
-                            printf("Error: Cannot take square root of negative number.\n");
-                        } else {
-                            floatResult = sqrt(num1);
-                            printf("The square root of %.2d is %.2lf\n", num1, floatResult);
-                        }
-                        break;
-                    case 'L':
-                    case 'l':
-                        floatResult = log((float) num1);
-                        printf("The log of %d is %f\n", num1, floatResult);
-                        break;
-                    case 'E':
-                    case 'e':
-                        floatResult = exp((float) num1);
-                        printf("The exponential of %d is %f\n", num1, floatResult);
-                        break;
-                    case 'c':
-                    case 'C':
-                        floatResult = ceil((float) num1);
-                        printf("The ceiling of %d is %f\n", num1, floatResult);
-                        break;
-                    case 'f':
-                    case 'F':
-                        floatResult = floor((float) num1);
-                        printf("The floor of %d is %f\n", num1, floatResult);
-                        break;
-                    default:
-                        printf("Invalid operator\n");
-                        break;
-                }
+                UnaryOperations(num1, operation);
                 break;
 
             case 'A':

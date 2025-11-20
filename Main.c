@@ -3,6 +3,21 @@
 #include <math.h>
 #include <stdlib.h>
 
+char showMainMenuAndGetChoice(void) {
+    char choice;
+
+    printf("Select one of the following operations:\n"
+           "B) Binary Mathematical Operations, such as addition and subtraction.\n"
+           "U) Unary Mathematical Operations, such as square root, and log.\n"
+           "A) Advanced Mathematical Operations, using variables, arrays.\n"
+           "V) Define variables and assign them values.\n"
+           "E) Exit\n");
+    scanf(" %c", &choice);
+
+    return choice;
+}
+
+
 void binaryOperations(int n1, int n2, char operation) {
     float floatResult;
     
@@ -115,17 +130,11 @@ int main(void) {
         char operation, choice, var;
         int num1, num2, result, valid = 0;
         float floatResult;
-        double a=0, b=0, c=0, d=0, e=0, value, n1, n2;
+        double vars[5] = {0,0,0,0,0};  // a = vars[0], b = vars[1], ... e = vars[4]
+        double value, n1, n2;
 
         // Show main menu
-        printf("Select one of the following operations:\n"
-            "B) Binary Mathematical Operations, such as addition and subtraction.\n"
-            "U) Unary Mathematical Operations, such as square root, and log.\n"
-            "A) Advances Mathematical Operations, using variables, arrays.\n"
-            "V) Define variables and assign them values.\n"
-            "E) Exit\n");
-        scanf(" %c", &choice);
-
+       choice = showMainMenuAndGetChoice();
         // Process user's menu choice
         switch (choice) {
             case 'B':
@@ -189,8 +198,6 @@ int main(void) {
 
             case 'A':
             case 'a':
-                // Advanced operations with variables
-
                 // Get sub-menu choice
                 printf("input choice(B,U,E): ");
                 scanf(" %c", &choice);
@@ -208,19 +215,19 @@ int main(void) {
                                 // Get value from the chosen variable
                                 switch (var) {
                                     case 'a':
-                                    case 'A': n1 = a;
+                                    case 'A': n1 = vars[0];
                                         break;
                                     case 'b':
-                                    case 'B': n1 = b;
+                                    case 'B': n1 = vars[1];
                                         break;
                                     case 'c':
-                                    case 'C': n1 = c;
+                                    case 'C': n1 = vars[2];
                                         break;
                                     case 'd':
-                                    case 'D': n1 = d;
+                                    case 'D': n1 = vars[3];
                                         break;
                                     case 'e':
-                                    case 'E': n1 = e;
+                                    case 'E': n1 = vars[4];
                                         break;
                                 }
                             } else if ((var >= '0' && var <= '9') || var == '-' || var == '.') {
@@ -246,19 +253,19 @@ int main(void) {
                                 // Get value from the chosen variable
                                 switch (var) {
                                     case 'a':
-                                    case 'A': n2 = a;
+                                    case 'A': n2 = vars[0];
                                         break;
                                     case 'b':
-                                    case 'B': n2 = b;
+                                    case 'B': n2 = vars[1];
                                         break;
                                     case 'c':
-                                    case 'C': n2 = c;
+                                    case 'C': n2 = vars[2];
                                         break;
                                     case 'd':
-                                    case 'D': n2 = d;
+                                    case 'D': n2 = vars[3];
                                         break;
                                     case 'e':
-                                    case 'E': n2 = e;
+                                    case 'E': n2 = vars[4];
                                         break;
                                     default: printf("Invalid variable\n");
                                         break;
@@ -293,19 +300,19 @@ int main(void) {
                                 // Get value from the chosen variable
                                 switch (var) {
                                     case 'a':
-                                    case 'A': n1 = a;
+                                    case 'A': n1 = vars[0];
                                         break;
                                     case 'b':
-                                    case 'B': n1 = b;
+                                    case 'B': n1 = vars[1];
                                         break;
                                     case 'c':
-                                    case 'C': n1 = c;
+                                    case 'C': n1 = vars[2];
                                         break;
                                     case 'd':
-                                    case 'D': n1 = d;
+                                    case 'D': n1 = vars[3];
                                         break;
                                     case 'e':
-                                    case 'E': n1 = e;
+                                    case 'E': n1 = vars[4];
                                         break;
                                     default: printf("Invalid variable\n");
                                         break;
@@ -334,51 +341,32 @@ int main(void) {
 
             case 'V':
             case 'v':
-                // Variable definition - store values in variables a-e
-
-                // Get which variable to define
-                printf("Define or change a variable (a-e)\n");
+                printf("Define or change a variable (a-e): ");
                 scanf(" %c", &operation);
 
-                // Get the value with input validation
+                // get value
                 while (!valid) {
-                    printf("Please enter the value: ");
-                    if (scanf("%lf", &value) == 1) {
-                        valid = 1; // Input was a valid number
-                    } else {
-                        printf("Error: Invalid input. Please enter a valid number.\n");
-                    }
-                    while (getchar() != '\n'); // Clear input buffer
+                    printf("Enter value: ");
+                    if (scanf("%lf", &value) == 1) valid = 1;
+                    else printf("Invalid input.\n");
+
+                    while (getchar() != '\n');
                 }
                 valid = 0;
 
-                // Store the value in the chosen variable
+                // assign using array
                 switch (operation) {
-                    case 'A':
-                    case 'a':
-                        a = (float) value;
-                        break;
-                    case 'b':
-                    case 'B':
-                        b = (float) value;
-                        break;
-                    case 'c':
-                    case 'C':
-                        c = (float) value;
-                        break;
-                    case 'd':
-                    case 'D':
-                        d = (float) value;
-                        break;
-                    case 'e':
-                    case 'E':
-                        e = (float) value;
-                        break;
+                    case 'a': case 'A': vars[0] = value; break;
+                    case 'b': case 'B': vars[1] = value; break;
+                    case 'c': case 'C': vars[2] = value; break;
+                    case 'd': case 'D': vars[3] = value; break;
+                    case 'e': case 'E': vars[4] = value; break;
                     default:
-                        printf("Invalid variable input\n");
-                        break;
+                        printf("Invalid variable.\n");
                 }
+
                 break;
+
 
             case 'E':
             case 'e':

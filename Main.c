@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
+#include <stdlib.h>
 
 void binaryOperations(int n1, int n2, char operation) {
     float floatResult;
@@ -89,6 +90,11 @@ void UnaryOperations(int num1, char operation) {
     }
 }
 
+int exitprogram(void) {
+   printf("Thank you for using my simple calculator\n");
+    printf("Exiting...");
+    return EXIT_SUCCESS;
+}
 
 int main(void) {
      // Program information
@@ -269,53 +275,7 @@ int main(void) {
                         }
 
                         // Perform the selected operation on the two operands
-                        switch (operation) {
-                            case '+':
-                                floatResult = n1 + n2;
-                                printf("%f + %f = %f\n", n1, n2, floatResult);
-                                break;
-                            case '-':
-                                floatResult = n1 - n2;
-                                printf("%f - %f = %f\n", n1, n2, floatResult);
-                                break;
-                            case '*':
-                                floatResult = n1 * n2;
-                                printf("%f * %f = %f\n", n1, n2, floatResult);
-                                break;
-                            case '/':
-                                // Check for division by zero
-                                if (n2 == 0) {
-                                    printf("Cannot divide by zero\n");
-                                } else {
-                                    floatResult = n1/n2;
-                                    printf("The quotient of %d and %d is %f\n", num1, num2, floatResult);
-                                }
-                                break;
-                            case '%':
-                                // Convert to int because modulo doesn't work with doubles
-                                floatResult = (int) n1 % (int) n2;
-                                printf("%f %% %f = %f\n", n1, n2, floatResult);
-                                break;
-                            case'P':
-                            case'p':
-                                floatResult = pow(n1, n2);
-                                printf("The power of %f and %f is %f\n", n1, n2, floatResult);
-                                break;
-                            case 'X':
-                            case 'x':
-                                floatResult = fmax(n1, n2);
-                                printf("The maximum of %lf and %lf is %f", n1, n2, floatResult);
-                                break;
-                            case 'I':
-                            case 'i':
-                                floatResult = fmin(n1, n2);
-                                printf("The minimum of %lf and %lf is %f", n1, n2, floatResult);
-                                break;
-
-                            default:
-                                printf("Invalid operator\n");
-                        }
-                        break;
+                        binaryOperations(n1, n2, operation);
 
                     case 'u':
                     case 'U':
@@ -358,42 +318,8 @@ int main(void) {
                         }
                         valid = 0;
 
-                        // Perform the selected unary operation
-                        switch (operation) {
-                            case 'S':
-                            case 's':
-                                // Check for negative number
-                                if (n1 < 0) {
-                                    printf("Error: Cannot take square root of negative number.\n");
-                                } else {
-                                    floatResult = sqrt(n1);
-                                    printf("The square root of %.2lf is %.2lf\n", n1, floatResult);
-                                }
-                                break;
-                            case 'L':
-                            case 'l':
-                                floatResult = log(n1);
-                                printf("The log of %lf is %f\n", n1, floatResult);
-                                break;
-                            case 'E':
-                            case 'e':
-                                floatResult = exp(n1);
-                                printf("The exponential of %lf is %f\n", n1, floatResult);
-                                break;
-                            case 'c':
-                            case 'C':
-                                floatResult = ceil(n1);
-                                printf("The ceiling of %lf is %f\n", n1, floatResult);
-                                break;
-                            case 'f':
-                            case 'F':
-                                floatResult = floor(n1);
-                                printf("The floor of %lf is %f\n", n1, floatResult);
-                                break;
-                            default:
-                                printf("Invalid operator\n");
-                                break;
-                        }
+                        // Perform the selected unary operatio
+                        UnaryOperations(n1, operation);
                         break;
 
 
@@ -457,9 +383,7 @@ int main(void) {
             case 'E':
             case 'e':
                 // Exit the program
-                printf("Thanks for using my Simple Calculator. Hope to see you soon again, Goodbye!");
-                printf("Exiting...\n");
-                return 0;
+               exit(exitprogram());
 
             default:
                 // Invalid menu choice
